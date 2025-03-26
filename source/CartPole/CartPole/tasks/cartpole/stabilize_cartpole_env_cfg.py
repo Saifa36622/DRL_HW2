@@ -118,6 +118,27 @@ class RewardsCfg:
     # (2) Failure penalty
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
 
+    # (3) pole target penalty 
+    pole_pos_p = RewTerm(func=mdp.joint_pos_target_l2_p,weight=-7.0,params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0})
+
+    # (3) 2  pole target reward 
+    pole_pos = RewTerm(func=mdp.joint_pos_target_l2,weight= 1.5,params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0})
+    
+    # cart_pos = RewTerm(func=mdp.joint_pos_target_l2_p,weight= -1.0,params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "target": 0.0})
+
+        # # (4) Shaping tasks: lower cart velocity
+    # cart_vel = RewTerm(
+    #     func=mdp.joint_vel_l1,
+    #     weight=-0.01,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
+    # )
+    # # # (5) Shaping tasks: lower pole angular velocity
+    # pole_vel = RewTerm(
+    #     func=mdp.joint_vel_l1,
+    #     weight=-0.005,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
+    # )
+
 @configclass
 class TerminationsCfg:
     """Termination terms for the MDP."""
@@ -134,6 +155,7 @@ class TerminationsCfg:
         func=mdp.joint_pos_out_of_manual_limit,
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "bounds": (float(np.deg2rad(-24.0)), float(np.deg2rad(24.0)))},
     )
+
 
 ##
 # Environment configuration

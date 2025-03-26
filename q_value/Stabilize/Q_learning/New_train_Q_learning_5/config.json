@@ -1,0 +1,16 @@
+{
+    "num_of_action": 7,
+    "action_range": [
+        -15.0,
+        15.0
+    ],
+    "discretize_state_weight": [
+        11,
+        15,
+        2,
+        2
+    ],
+    "learning_rate": 0.5,
+    "epsilon_decay": 0.9998,
+    "discount": 0.75
+}

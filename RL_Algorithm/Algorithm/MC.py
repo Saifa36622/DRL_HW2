@@ -38,7 +38,7 @@ class MC(BaseAlgorithm):
             final_epsilon=final_epsilon,
             discount_factor=discount_factor,
         )
-        
+    
     def update(self):
         """
         Update Q-values using Monte Carlo.
@@ -51,24 +51,32 @@ class MC(BaseAlgorithm):
         # Process episode in reverse order (to apply Monte Carlo return formula)
         for t in reversed(range(len(self.obs_hist))):
             obs_dis = self.obs_hist[t]
+            obs_dis_tuple = tuple(sorted(obs_dis.items()))  # Convert dict to hashable tuple
+            
             action_idx = self.action_hist[t]
             reward = self.reward_hist[t]
+
+            # Ensure the key exists in self.n_values before incrementing
+            if obs_dis_tuple not in self.n_values:
+                self.n_values[obs_dis_tuple] = np.zeros(self.num_of_action)
+            if obs_dis_tuple not in self.q_values:
+                self.q_values[obs_dis_tuple] = np.zeros(self.num_of_action)
+
+            # Increment visit count
+            self.n_values[obs_dis_tuple][action_idx] += 1
 
             # Compute discounted return
             G = self.discount_factor * G + reward
 
             # Update Q-value only for first visit to (state, action)
-            if (obs_dis, action_idx) not in visited:
-                visited.add((obs_dis, action_idx))
-
-                # Increment visit count
-                self.n_values[obs_dis][action_idx] += 1
+            if (obs_dis_tuple, action_idx) not in visited:
+                visited.add((obs_dis_tuple, action_idx))
 
                 # Average returns for state-action pair
-                alpha = 1.0 / self.n_values[obs_dis][action_idx]
-                self.q_values[obs_dis][action_idx] += alpha * (G - self.q_values[obs_dis][action_idx])
+                alpha = 1.0 / self.n_values[obs_dis_tuple][action_idx]
+                self.q_values[obs_dis_tuple][action_idx] += alpha * (G - self.q_values[obs_dis_tuple][action_idx])
 
-        # Clear episode history after update
+        # Clear episode history after all updates
         self.obs_hist.clear()
         self.action_hist.clear()
         self.reward_hist.clear()

@@ -55,8 +55,18 @@ class SARSA(BaseAlgorithm):
         else:
             next_q = 0.0  
 
+        # Debugging: Print the shape and type of next_q
+        # print(f"DEBUG: next_q type: {type(next_q)}, shape: {getattr(next_q, 'shape', 'N/A')}")
 
-        target_q = reward + self.discount_factor * next_q
+        # Ensure `next_q` is a float
+        if isinstance(next_q, np.ndarray):
+            if next_q.size == 1:  # Ensure it's a single value
+                next_q = next_q.item()  # Convert scalar NumPy array to Python float
+            else:
+                next_q = float(np.mean(next_q))  # Use the mean value if `next_q` is an array
+
+        target_q = float(reward) + self.discount_factor * next_q
+
         new_q = current_q + self.lr * (target_q - current_q)
 
         self.q_values[obs_dis][action_idx] = new_q

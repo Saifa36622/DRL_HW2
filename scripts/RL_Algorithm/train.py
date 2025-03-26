@@ -5,6 +5,8 @@
 import argparse
 import sys
 import os
+import json
+import wandb
 
 from isaaclab.app import AppLauncher
 
@@ -59,6 +61,7 @@ from isaaclab.envs import (
 
 from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper
 from isaaclab_tasks.utils.hydra import hydra_task_config
+
 from isaaclab.utils.dict import print_dict
 from isaaclab.utils.io import dump_pickle, dump_yaml
 from isaaclab_tasks.utils import get_checkpoint_path
@@ -108,20 +111,29 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # ========================= Can be modified ========================== #
 
     # hyperparameters
-    num_of_action = 60
-    action_range = [-3.0, 3.0]  # [min, max]
-    discretize_state_weight = [10, 10, 10, 10]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
-    learning_rate = 0.1
-    n_episodes = 10000
+    num_of_action = 5
+    action_range = [-12.0, 12.0]  # [min, max]
+    # discretize_state_weight = [10,20, 2, 2] 
+    discretize_state_weight = [10,20, 2, 2]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
+    learning_rate = 0.3
+    # learning_rate = 0.3
+    n_episodes = 12000
     start_epsilon = 1.0
-    epsilon_decay = 0.99905 # reduce the exploration over time
+
+    epsilon_decay = 0.9997
+
     final_epsilon = 0.01
-    discount = 0.75
+
+    # discount = 0.99
+    discount = 0.5
 
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
 
-    Algorithm_name = "Q_Learning"
-    
+    Algorithm_name = "Q_learning"
+    # Algorithm_name = "SARSA"
+    # Algorithm_name = "Double_Q_learning"
+    # Algorithm_name = "MC"
+
     agent = Q_Learning(
         num_of_action=num_of_action,
         action_range=action_range,
@@ -155,20 +167,51 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     #     discount_factor=discount
     # )
 
-    agent = MC(
-        num_of_action=num_of_action,
-        action_range=action_range,
-        discretize_state_weight=discretize_state_weight,
-        learning_rate=learning_rate,
-        initial_epsilon=start_epsilon,
-        epsilon_decay=epsilon_decay,
-        final_epsilon=final_epsilon,
-        discount_factor=discount
-    )
+    # agent = MC(
+    #     num_of_action=num_of_action,
+    #     action_range=action_range,
+    #     discretize_state_weight=discretize_state_weight,
+    #     learning_rate=learning_rate,
+    #     initial_epsilon=start_epsilon,
+    #     epsilon_decay=epsilon_decay,
+    #     final_epsilon=final_epsilon,
+    #     discount_factor=discount
+    # )
     # reset environment
     obs, _ = env.reset()
     timestep = 0
     sum_reward = 0
+    sum_count = 0
+    # List of dicts for every step (for plotting)
+    train_logs = []
+    name_plot = "Q_train_16"
+
+
+    full_path = os.path.join(f"q_value/{task_name}", Algorithm_name,name_plot)
+    # Ensure the directory exists
+    os.makedirs(full_path, exist_ok=True)  # FIX: Create directory before writing
+
+    # Define config parameters
+    config = {
+        'num_of_action': num_of_action,
+        'action_range': action_range,
+        'discretize_state_weight': discretize_state_weight,
+        'learning_rate': learning_rate,
+        'epsilon_decay': epsilon_decay,
+        'discount': discount,
+        # 'reward' : " 3 reward (decrease reward for pole_pos)"
+    }
+
+    # Save JSON file inside the directory
+    config_path = os.path.join(full_path, "config.json")  # FIX: Correct file path
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=4)  # FIX: Use indentation for readability
+
+
+    wandb.init(project="DRL_HW2_NEW",name=name_plot)
+
+    # wandb.init(project="DRL_HW2",name="SARSA_1")
+
     # simulate environment
     while simulation_app.is_running():
         # run everything in inference mode
@@ -179,7 +222,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                 obs, _ = env.reset()
                 done = False
                 cumulative_reward = 0
-
+                selected_actions = []  
+                count = 0
                 while not done:
                     # agent stepping
                     action, action_idx = agent.get_action(obs)
@@ -190,11 +234,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     reward_value = reward.item()
                     terminated_value = terminated.item() 
                     cumulative_reward += reward_value
+                    selected_actions.append(action_idx)
 
 #  -------------------------------------------------------------------------------
 
                     # Q-learning 
-                    # agent.update(obs,action_idx,reward,next_obs,done)
+                    agent.update(obs,action_idx,reward,next_obs,done)
 
 #  -------------------------------------------------------------------------------
 
@@ -203,6 +248,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     #     next_action, next_action_idx = agent.get_action(next_obs)
                     # else:
                     #     next_action_idx = None  # No next action if episode ends
+
                     # agent.update(obs, action_idx, reward, next_obs, next_action_idx, done)
 
 #  -------------------------------------------------------------------------------
@@ -213,31 +259,59 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 #  -------------------------------------------------------------------------------
 
                     # MC 
-                    agent.obs_hist.append(obs)
-                    agent.action_hist.append(action_idx)
-                    agent.reward_hist.append(reward_value)
+                    # agent.obs_hist.append(obs)
+                    # agent.action_hist.append(action_idx)
+                    # agent.reward_hist.append(reward_value)
 
 #  -------------------------------------------------------------------------------
 
 
-
                     done = terminated or truncated
                     obs = next_obs
+                    count += 1
+                    
 
-                    agent.update()
+                # MC 
                 
+                sum_count += count
                 sum_reward += cumulative_reward
+                 # Store data at the end of each episode
+                train_logs.append({
+                    "episode": episode,
+                    # "selected_actions": selected_actions,
+                    "cumulative_reward": cumulative_reward,
+                    "epsilon": agent.epsilon
+                })
+
+                wandb.log({
+                    "episode": episode,
+                    "cumulative_reward": cumulative_reward,
+                    "epsilon": agent.epsilon
+                })
+
                 if episode % 100 == 0:
                     print("avg_score: ", sum_reward / 100.0)
+                    
+                    wandb.log({
+                        "sum_reward" : sum_reward / 100.0,
+                        "count" :sum_count /10000
+                    })
+
                     sum_reward = 0
+                    sum_count = 0
                     print(agent.epsilon)
 
                     # Save Q-Learning agent
-                    # q_value_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}_{discretize_state_weight[0]}_{discretize_state_weight[1]}.json"
-                    # full_path = os.path.join(f"q_value/{task_name}", Algorithm_name)
-                    # agent.save_q_value(full_path, q_value_file)
+                    q_value_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}_{discretize_state_weight[0]}_{discretize_state_weight[1]}.json"
+                    # full_path = os.path.join(f"q_value/{task_name}", Algorithm_name,name_plot)
+                    agent.save_q_value(full_path, q_value_file)
+
+                    # n_value_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}_{discretize_state_weight[0]}_{discretize_state_weight[1]}.json"
+                    # full_path_n = os.path.join(f"n_value/{task_name}", Algorithm_name,name_plot)
+                    # agent.save_n_value(full_path_n,n_value_file)
 
                 agent.decay_epsilon()
+                # agent.update()
              
         if args_cli.video:
             timestep += 1
@@ -248,9 +322,16 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         print("!!! Training is complete !!!")
         break
     # ==================================================================== #
+    log_json_path = os.path.join(log_dir, "step_logs.json")
+    os.makedirs(os.path.dirname(log_json_path), exist_ok=True)
 
+    print(f"Saving logs (every step) to {log_json_path}")
+    with open(log_json_path, "w") as f:
+        json.dump(train_logs, f, indent=2)
+    
     # close the simulator
     env.close()
+    wandb.finish()
 
 if __name__ == "__main__":
     # run the main function

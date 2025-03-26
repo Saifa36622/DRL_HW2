@@ -1,0 +1,17 @@
+    # hyperparameters
+    num_of_action = 5
+    action_range = [-12.0, 12.0]  # [min, max]
+    # discretize_state_weight = [10,20, 2, 2] 
+    discretize_state_weight = [7,21, 3, 3]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
+    learning_rate = 0.3
+    n_episodes = 12000
+    start_epsilon = 1.0
+
+    epsilon_decay = 0.9997
+
+    final_epsilon = 0.01
+
+    # discount = 0.99
+    discount = 0.75
+
+    3 reward term

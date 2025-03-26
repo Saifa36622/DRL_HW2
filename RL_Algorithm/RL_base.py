@@ -4,7 +4,7 @@ from enum import Enum
 import os
 import json
 import torch
-
+import math
 
 class ControlType(Enum):
     """
@@ -82,19 +82,44 @@ class BaseAlgorithm():
         """
 
         # ========= put your code here =========#
+        self.cart_pos_min,   self.cart_pos_max   = -3.0, 3.0
+        self.pole_angle_min, self.pole_angle_max = math.radians(-24.0), math.radians(24.0)
 
-        policy_tensor = obs["policy"]  # This is a tensor on CUDA
+        # Example velocity bounds (tweak these as needed)
+        self.cart_vel_min,   self.cart_vel_max   = -5.0, 5.0
+        self.pole_vel_min,   self.pole_vel_max   = -10.0, 10.0
 
-        # Move tensor to CPU and convert to numpy array if necessary
-        policy_values = policy_tensor.cpu().numpy().flatten()  # Convert to 1D array
+        policy_tensor = obs["policy"]  # e.g., a torch CUDA tensor
+        policy_values = policy_tensor.cpu().numpy().flatten()
 
-        # Extract values using indexes
-        pose_cart_dis = int(policy_values[0] * self.discretize_state_weight[0])
-        pose_pole_dis = int(policy_values[1] * self.discretize_state_weight[1])
-        vel_cart_dis = int(policy_values[2] * self.discretize_state_weight[2])
-        vel_pole_dis = int(policy_values[3] * self.discretize_state_weight[3])
+        cart_pos     = policy_values[0]
+        pole_angle   = policy_values[1]
+        cart_vel     = policy_values[2]
+        pole_vel     = policy_values[3]
 
-        return (pose_cart_dis, pose_pole_dis, vel_cart_dis, vel_pole_dis)
+        # 2) Extract the bin counts
+        bins_cart_pos   = self.discretize_state_weight[0]
+        bins_pole_angle = self.discretize_state_weight[1]
+        bins_cart_vel   = self.discretize_state_weight[2]
+        bins_pole_vel   = self.discretize_state_weight[3]
+
+        # 3) Define a small helper to clamp & bin any value
+        def to_bin(value, num_bins, min_val, max_val):
+            clipped = np.clip(value, min_val, max_val)
+            scaled  = (clipped - min_val) / (max_val - min_val) * num_bins
+            bin_idx = int(math.floor(scaled))
+            # clamp to [0, num_bins - 1] in case scaled == num_bins
+            if bin_idx >= num_bins:
+                bin_idx = num_bins - 1
+            return bin_idx
+
+ 
+        cart_pos_dis   = to_bin(cart_pos,   bins_cart_pos,   self.cart_pos_min,   self.cart_pos_max)
+        pole_angle_dis = to_bin(pole_angle, bins_pole_angle, self.pole_angle_min, self.pole_angle_max)
+        cart_vel_dis   = to_bin(cart_vel,   bins_cart_vel,   self.cart_vel_min,   self.cart_vel_max)
+        pole_vel_dis   = to_bin(pole_vel,   bins_pole_vel,   self.pole_vel_min,   self.pole_vel_max)
+
+        return (cart_pos_dis, pole_angle_dis, cart_vel_dis, pole_vel_dis)
 
         # ======================================#
 
@@ -110,13 +135,16 @@ class BaseAlgorithm():
         """
 
         # ========= put your code here =========#
-
+        #  0 - 1
         if np.random.rand() < self.epsilon:
-
             action_idx = np.random.randint(0, self.num_of_action)
             return action_idx
         else:
-            action_idx = np.argmax(self.q_values[obs_dis])
+            if self.control_type == ControlType.DOUBLE_Q_LEARNING :
+                action_idx =  np.argmax((self.qa_values[obs_dis] + self.qb_values[obs_dis]) / 2)
+                #  max of qa and ab
+            else :
+               action_idx = np.argmax(self.q_values[obs_dis])
             return int(action_idx)
 
 
@@ -200,8 +228,20 @@ class BaseAlgorithm():
                 'q_values': q_values_str_keys,
             }
         full_path = os.path.join(path, filename)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
         with open(full_path, 'w') as f:
             json.dump(model_params, f)
+
+    def save_n_value(self, path, filename):
+        """
+        Save the model parameters to a JSON file.
+
+        Args:
+            path (str): Path to save the model.
+            filename (str): Name of the file.
+        """
+        pass
+        
 
             
     def load_q_value(self, path, filename):

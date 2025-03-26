@@ -1,0 +1,13 @@
+    # hyperparameters
+    num_of_action = 11
+    action_range = [-15.0, 15.0]  # [min, max]
+    discretize_state_weight = [5,5, 3, 3]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
+    learning_rate = 0.3
+    n_episodes = 10000
+    start_epsilon = 1.0
+
+    epsilon_decay = 0.9997
+
+    final_epsilon = 0.01
+
+    discount = 0.75
