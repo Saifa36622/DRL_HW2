@@ -129,8 +129,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     final_epsilon = 0.01
 
-    # discount = 0.99
-    discount = 0.5
+    discount = 0.99
+    # discount = 0.5
 
     # state_count = defaultdict(int)
 
@@ -193,11 +193,11 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     sum_count = 0
     # List of dicts for every step (for plotting)
     train_logs = []
-    name_plot = "test_new_final"
+    name_plot = "q_discount_99"
 
 
 
-    full_path = os.path.join(f"q_value/{task_name}", Algorithm_name,name_plot)
+    full_path = os.path.join(f"q_value/{task_name}","Final", Algorithm_name,name_plot)
     # Ensure the directory exists
     os.makedirs(full_path, exist_ok=True)  # FIX: Create directory before writing
 
@@ -218,7 +218,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         json.dump(config, f, indent=4)  # FIX: Use indentation for readability
 
 
-    wandb.init(project="DRL_HW2_NEW",name=name_plot)
+    wandb.init(project="DRL_HW2_Final",name=name_plot)
 
     # wandb.init(project="DRL_HW2",name="SARSA_1")
 
