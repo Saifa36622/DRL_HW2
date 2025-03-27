@@ -1,140 +1,62 @@
-# CartPole
- 
-## Overview
-This repository contains files related to the `CartPole` task, which will be used for Homework 2 and Homework 3. It includes environment configurations, RL algorithms, and training scripts to support reinforcement learning experiments.
+# **Cartpole**
+
+## 1. Setting up Cart pole Agent 
+
+## 2. training the Agent 
+
+## 3. Evaluate Agent Perfornance
+
+To evaluation we will analyze behavior of each algorithm first then compare each algorithm to each other
+
+- We will 
 
 
-The repository provided in this homework is a custom IsaacLab extension, created from [IsaacLabExtensionTemplate](https://github.com/isaac-sim/IsaacLabExtensionTemplate). Please refer to this repository for more detailed information.
+1.reward gain and acceleration 
 
-## Installation
+2.blackjack plot 
 
-- navigate to the `CartPole_4.5.0/` directory by running:
+3.analyze frequency of accumulate reward -> assumtion if the agent exploit the frequency will be leess 
 
-    ```
-    cd CartPole_4.5.0/
-    ```
-- Using a python interpreter (conda) that has Isaac Lab installed, install the library
+4.play video
 
-    ```
-    python -m pip install -e ./source/CartPole
-    ```
+5.Heatmap of state visit frequency ,state count 
 
-- Verify that the extension is correctly installed by running the following command to print all the available environments in the extension:
-
-    ```
-    python scripts/list_envs.py
-    ```
-## Repository organization
-This repository is an IsaacLab extension for training reinforcement learning (RL) agents on the CartPole task. It includes environment configurations, RL algorithms, and training scripts.
-
-```
-CARTPOLE
-├── source/CartPole
-│   ├── CartPole
-│       ├── tasks
-│           ├── cartpole
-│               ├── agents
-│               ├── mdp
-│               │   ├── __init__.py
-│               │   ├── actions.py
-│               │   ├── events.py
-│               │   ├── observation.py
-│               │   ├── rewards.py
-│               │   └── terminations.py
-│               ├── __init__.py
-│               ├── stabilize_cartpole_env_cfg.py
-│               └── swing_up_cartpole_env_cfg.py
-│               
-│  
-├── q_value
-│   ├── Stabilize
-│   │   ├── tasks
-│   │   ├── MC
-│   │   ├── Q_Learning
-│   │   └── SARSA
-│   ├── SwingUp
-│  
-├── RL_Algorithm
-│   ├── Algorithm
-│   │   ├── Double_Q_Learning
-│   │   ├── MC
-│   │   ├── Q_Learning
-│   │   └── SARSA
-│   └── RL_base.py
-│
-└── scripts
-    └── RL_Algorithm
-        ├── play.py
-        ├── random_action.py
-        └── train.py
-```
-
-### Descriptions
-
-- **source/CartPole:** Contains the core elements of the CartPole environments.
-
-    - **mdp:** Implements key components of the Markov Decision Process (MDP) which includes actions, events, observations, rewards, and termination conditions.
-
-    - **__init__.py:** Contains the gym registry
-    code that registers your environments with the `OpenAI Gym interface`. This registration makes your environments compatible with standard RL libraries and algorithms (please consults this [tutorial](https://isaac-sim.github.io/IsaacLab/main/source/tutorials/03_envs/register_rl_env_gym.html#using-the-gym-registry) for more information).
-
-    - **stabilize_cartpole_env_cfg.py / swing_up_cartpole_env_cfg.py:** `Manager-Based RL Environments` configuration for the stabilization task and swing-up task:
-
-        - `Scene`
-
-        - `Action` 
-
-        - `Observation`
-
-        - `Event`
-
-        - `Reward`
-
-        - `Termination`
-
-- **q_value:** Stores the trained `Q-value tables` as `JSON files`. Each subdirectory corresponds to a different `Q-value tables` learned by algorithms.
-
-- **RL_Algorithm:** This is where you'll implement your reinforcement learning algorithms for Homework 2:
-
-    - **Algorithm:** Contains separate implementations for each RL approach:
-
-        - `MC`
-
-        - `SARSA` 
-
-        - `Q-Learning`
-
-        - `Double Q-Learning`
-
-    - **RL_base.py:** Provides the foundation classes with common methods such as:
-
-        - `get_action`
-
-        - `decay_epsilon` 
-
-        - `save_model`
-
-        - `load_model`
+6.Q-value Stability
 
 
-- **scripts/RL_Algorithm:** Contains executable scripts for:
+tunning 
 
-    - **train.py:** Runs the training process for your selected algorithm against a specific environment.
+1. epsilon decay -> analyze explore and exploit behavior of each algorithm 
 
-    - **play.py:** Demonstrates the performance of a trained agent using saved Q-values.
- 
-    - **random_action.py:** Executes random actions in the environment to verify package installation.
+2. num action + discretize weight -> -> analyze the best resolutions of each algorithm 
 
-## Verifying CartPole installation
+3. leaning rate 
 
-### 1. Stabilizing Cart-Pole Task
+4. discount factor 
 
-```
-python scripts/RL_Algorithm/random_action.py --task Stabilize-Isaac-Cartpole-v0
-```
 
-### 2. Swing-up Cart-Pole Task
 
-```
-python scripts/RL_Algorithm/random_action.py --task SwingUp-Isaac-Cartpole-v0
-```
+
+
+### 3.1 Q-learning 
+
+### 3.2 SARSA
+
+### 3.3 Monte Carlo (MC)
+
+### 3.4 Double Q-learning 
+
+### Conpare every algorithm
+
+## Conclusion 
+
+- 
+
+Which algorithm performs best 
+- 
+
+Why does it perform better than the others?
+- 
+
+How do the resolutions of the action space and observation space affect the learning process? Why?
+- 

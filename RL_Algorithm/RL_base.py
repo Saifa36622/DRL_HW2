@@ -57,6 +57,8 @@ class BaseAlgorithm():
         self.num_of_action = num_of_action
         self.action_range = action_range
         self.discretize_state_weight = discretize_state_weight
+        # self.state_count = [0] *  math.prod(discretize_state_weight)
+        self.state_count = defaultdict(int)
 
         self.q_values = defaultdict(lambda: np.zeros(self.num_of_action))
         self.n_values = defaultdict(lambda: np.zeros(self.num_of_action))
@@ -188,6 +190,7 @@ class BaseAlgorithm():
             torch.Tensor, int: Scaled action tensor and chosen action index.
         """
         obs_dis = self.discretize_state(obs)
+        self.state_count[obs_dis] += 1
         action_idx = self.get_discretize_action(obs_dis)
         action_tensor = self.mapping_action(action_idx)
         return action_tensor, action_idx

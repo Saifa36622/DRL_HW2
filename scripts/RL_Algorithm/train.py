@@ -7,7 +7,9 @@ import sys
 import os
 import json
 import wandb
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 from isaaclab.app import AppLauncher
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -17,6 +19,9 @@ from RL_Algorithm.Algorithm.SARSA import SARSA
 from RL_Algorithm.Algorithm.Double_Q_Learning import Double_Q_Learning
 from RL_Algorithm.Algorithm.MC import MC
 from tqdm import tqdm
+from collections import defaultdict
+
+
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
@@ -127,6 +132,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # discount = 0.99
     discount = 0.5
 
+    # state_count = defaultdict(int)
+
+    
+
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
 
     Algorithm_name = "Q_learning"
@@ -184,7 +193,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     sum_count = 0
     # List of dicts for every step (for plotting)
     train_logs = []
-    name_plot = "Q_train_16"
+    name_plot = "test_new_final"
+
 
 
     full_path = os.path.join(f"q_value/{task_name}", Algorithm_name,name_plot)
@@ -297,6 +307,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                         "count" :sum_count /10000
                     })
 
+                    # visit_counts = list(agent.state_count.values())
+                    # wandb.log({"state_visit_frequency": wandb.Histogram(visit_counts)})
+
                     sum_reward = 0
                     sum_count = 0
                     print(agent.epsilon)
@@ -310,6 +323,28 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     # full_path_n = os.path.join(f"n_value/{task_name}", Algorithm_name,name_plot)
                     # agent.save_n_value(full_path_n,n_value_file)
 
+                if episode % 1000 == 0 :
+                    # Create 2D heatmap matrix for cart position vs pole angle (first 2 dimensions of state)
+                    cart_bins, pole_bins = discretize_state_weight[0], discretize_state_weight[1]
+                    position_visit_counts = np.zeros((cart_bins, pole_bins))
+
+                    # Fill heatmap matrix using state_count
+                    for state, count in agent.state_count.items():
+                        cart_idx = state[0]
+                        pole_idx = state[1]
+                        position_visit_counts[cart_idx, pole_idx] += count
+
+                    # Plot heatmap
+                    plt.figure(figsize=(10, 8))
+                    sns.heatmap(position_visit_counts, cmap='viridis')
+                    plt.title('State Visit Frequency (Cart Pos vs Pole Angle)')
+                    plt.xlabel('Pole Angle Bins')
+                    plt.ylabel('Cart Position Bins')
+
+                    # Log to Weights & Biases
+                    wandb.log({"State Visit Heatmap": wandb.Image(plt)})
+                    plt.close()
+
                 agent.decay_epsilon()
                 # agent.update()
              
@@ -322,6 +357,11 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         print("!!! Training is complete !!!")
         break
     # ==================================================================== #
+
+    train_logs.append({
+        "state_count" : {str(k): v for k, v in agent.state_count.items()}
+    })
+
     log_json_path = os.path.join(log_dir, "step_logs.json")
     os.makedirs(os.path.dirname(log_json_path), exist_ok=True)
 
