@@ -102,6 +102,16 @@ we will evaluate each algorithm first then compare it to each other and to under
 #### Normal_q-learing 
 
 
+![image](https://github.com/user-attachments/assets/2e41e9a0-854d-4c66-a90a-85841e7a4b1d)
+
+
+( count is timestep (in secound) that agent is alive or not be terminate in average in every 1000 episdode )
+
+and we can plot compare the state with Q-value as follow 
+
+![Normal_q](https://github.com/user-attachments/assets/ff6123d4-58cd-44e6-a6ee-1cda50578e3e)
+
+
 ### 3.2 SARSA
 
 ### 3.3 Monte Carlo (MC)
