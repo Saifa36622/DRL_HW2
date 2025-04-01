@@ -65,7 +65,7 @@ for training from a lot of traing with Stabilize Cart-Pole Task we can conclude 
 To calculate the epsilon_decay rate i use the equation
 
 $$
-\text{desired\_epsilon} = \text{initial\_epsilon} \times (\text{epsilon\_decay\_rate})^x
+\text{desired epsilon at each epidose} = \text{initial epsilon} \times (\text{epsilon decay rate})^x
 $$
 
 such as I want to see that what episode will my epsilon be 0.5 
@@ -77,6 +77,9 @@ $$
 the answer is around 2310 episode the epsilone value will be at 0.5 and it will converge to min at 0.01 at around 15000 
 episode ,The epsilon will be like the picture as follow 
 
+![image](https://github.com/user-attachments/assets/7ad2a431-a3b9-4877-b814-175f04c16f06)
+
+###  num_of_action and discretize_state_weight calculation 
 
 
 
