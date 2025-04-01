@@ -16,13 +16,13 @@ for cartpole I implement the following
 
 - **Algorithm**
 
-    - Monte Carlo class
+    - **Monte Carlo class**
 
-    - SARSA class
+    - **SARSA class**
 
-    - Q-Learning Class
+    - **Q-Learning Class**
 
-    - Double Q-Learning Class
+    - **Double Q-Learning Class**
 
 including 
 
@@ -53,6 +53,9 @@ for training from a lot of traing with Stabilize Cart-Pole Task we can conclude 
 - num_of_action = 5
 - action_range = [-12.0, 12.0]
 - discretize_state_weight = [10,20, 2, 2]
+
+these 3  parameter is come mapping the num_of_action to action_range I will have 5 action contian -12,-6,0,6,12 action that agent can choose from and discretize_state_weight will map the obseve state to weight such as cart posiion that I weight it 10 it mean the cart position are going to have 10 state (from the limit in the code that cart are limit at -3 to 3) the cart pose will the divide in 10 state -3 to 3 in linspace
+
 - learning_rate = 0.3
 - n_episodes = 12000
 - start_epsilon = 1.0
@@ -79,42 +82,19 @@ episode ,The epsilon will be like the picture as follow
 
 ![image](https://github.com/user-attachments/assets/7ad2a431-a3b9-4877-b814-175f04c16f06)
 
-###  num_of_action and discretize_state_weight calculation 
-
 
 
 ## 3. Evaluate Agent Perfornance
 
-To evaluation we will analyze behavior of each algorithm first then compare each algorithm to each other
+we will evaluate each algorithm first then compare it to each other and to understand each algorithm behavior and to selected the best performance for each algorithm ,we will find tune each hyperparameter as follow 
 
-- We will 
+1. epsilon decay -> to analyze explore and exploit behavior of each algorithm 
 
-
-1.reward gain and acceleration 
-
-2.blackjack plot 
-
-3.analyze frequency of accumulate reward -> assumtion if the agent exploit the frequency will be leess 
-
-4.play video and collect obsever from play to analyze stabilitze
-
-5.Heatmap of state visit frequency ,state count 
-
-6.Q-value Stability
-
-
-tunning 
-
-1. epsilon decay -> analyze explore and exploit behavior of each algorithm 
-
-2. num action + discretize weight -> -> analyze the best resolutions of each algorithm 
+2. num action + discretize weight -> -> analyze the effec of resolutions of each algorithm 
 
 3. leaning rate 
 
 4. discount factor 
-
-
-
 
 
 ### 3.1 Q-learning 
