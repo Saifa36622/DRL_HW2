@@ -125,11 +125,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     n_episodes = 12000
     start_epsilon = 1.0
 
-    epsilon_decay = 0.9997
+    epsilon_decay = 0.9996
+    # 0.9996 0.9998
 
     final_epsilon = 0.01
 
-    discount = 0.99
+    discount = 0.5
     # discount = 0.5
 
     # state_count = defaultdict(int)
@@ -138,23 +139,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
 
-    Algorithm_name = "Q_learning"
-    # Algorithm_name = "SARSA"
+    # Algorithm_name = "Q_learning"
+    Algorithm_name = "SARSA"
     # Algorithm_name = "Double_Q_learning"
     # Algorithm_name = "MC"
 
-    agent = Q_Learning(
-        num_of_action=num_of_action,
-        action_range=action_range,
-        discretize_state_weight=discretize_state_weight,
-        learning_rate=learning_rate,
-        initial_epsilon=start_epsilon,
-        epsilon_decay=epsilon_decay,
-        final_epsilon=final_epsilon,
-        discount_factor=discount
-    )
-
-    # agent = SARSA(
+    # agent = Q_Learning(
     #     num_of_action=num_of_action,
     #     action_range=action_range,
     #     discretize_state_weight=discretize_state_weight,
@@ -164,6 +154,17 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     #     final_epsilon=final_epsilon,
     #     discount_factor=discount
     # )
+
+    agent = SARSA(
+        num_of_action=num_of_action,
+        action_range=action_range,
+        discretize_state_weight=discretize_state_weight,
+        learning_rate=learning_rate,
+        initial_epsilon=start_epsilon,
+        epsilon_decay=epsilon_decay,
+        final_epsilon=final_epsilon,
+        discount_factor=discount
+    )
 
     # agent = Double_Q_Learning(
     #     num_of_action=num_of_action,
@@ -193,7 +194,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     sum_count = 0
     # List of dicts for every step (for plotting)
     train_logs = []
-    name_plot = "q_discount_99"
+    name_plot = "SARSA_epislon_0.9996"
 
 
 
@@ -249,17 +250,17 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 #  -------------------------------------------------------------------------------
 
                     # Q-learning 
-                    agent.update(obs,action_idx,reward,next_obs,done)
+                    # agent.update(obs,action_idx,reward,next_obs,done)
 
 #  -------------------------------------------------------------------------------
 
                     # SARSA
-                    # if not (terminated or truncated):
-                    #     next_action, next_action_idx = agent.get_action(next_obs)
-                    # else:
-                    #     next_action_idx = None  # No next action if episode ends
+                    if not (terminated or truncated):
+                        next_action, next_action_idx = agent.get_action(next_obs)
+                    else:
+                        next_action_idx = None  # No next action if episode ends
 
-                    # agent.update(obs, action_idx, reward, next_obs, next_action_idx, done)
+                    agent.update(obs, action_idx, reward, next_obs, next_action_idx, done)
 
 #  -------------------------------------------------------------------------------
 
@@ -282,7 +283,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     
 
                 # MC 
-                
+                # agent.update()
                 sum_count += count
                 sum_reward += cumulative_reward
                  # Store data at the end of each episode

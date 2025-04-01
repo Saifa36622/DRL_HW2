@@ -5,6 +5,7 @@
 import argparse
 import sys
 import os
+import json
 
 from isaaclab.app import AppLauncher
 
@@ -80,13 +81,13 @@ def main():
 
     num_of_action = 5
     action_range = [-12.0, 12.0]  # [min, max]
-    discretize_state_weight = [10, 10, 5, 5]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
+    discretize_state_weight = [5, 20, 2, 2]  # [pose_cart:int, pose_pole:int, vel_cart:int, vel_pole:int]
     learning_rate = 0.1
     n_episodes = 10000
-    start_epsilon = 1.0
+    start_epsilon = 0.01
     epsilon_decay = 0.9997 # reduce the exploration over time
     final_epsilon = 0.01
-    discount = 0.75
+    discount = 0.5
 
     agent = Q_Learning(
         num_of_action=num_of_action,
@@ -100,11 +101,11 @@ def main():
     )
 
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
-    Algorithm_name = "Q_Learning"  
+    Algorithm_name = "Q_learning"  
     episode = 0
     # q_value_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}_{discretize_state_weight[0]}_{discretize_state_weight[1]}.json"
-    q_value_file = "Q_Learning_9900_5_15.0_5_5.json"
-    full_path = os.path.join(f"q_value/{task_name}", Algorithm_name)
+    q_value_file = "Q_learning_11900_5_12.0_10_20.json"
+    full_path = os.path.join(f"q_value/{task_name}","Final", Algorithm_name,"Normal_q")
     agent.load_q_value(full_path, q_value_file)
 
     # reset environment
@@ -119,9 +120,25 @@ def main():
 
                 obs, _ = env.reset()
                 done = False
+                observer_log = []
 
                 while not done:
                     # agent stepping
+
+                    policy_tensor = obs["policy"]  # e.g., a torch CUDA tensor
+                    policy_values = policy_tensor.cpu().numpy().flatten()
+
+                    cart_pos     = policy_values[0]
+                    pole_angle   = policy_values[1]
+                    cart_vel     = policy_values[2]
+                    pole_vel     = policy_values[3]
+
+                    observer_log.append({
+                        "cart_pos": float(cart_pos),
+                        "pole_angle": float(pole_angle),
+                        "cart_vel": float(cart_vel),
+                        "pole_vel": float(pole_vel),
+                    })
                     action, action_idx = agent.get_action(obs)
 
                     # env stepping
@@ -129,6 +146,15 @@ def main():
 
                     done = terminated or truncated
                     obs = next_obs
+
+                if episode == 0:
+                    log_dir = "observer_log"
+                    os.makedirs(log_dir, exist_ok=True)
+                    log_path = os.path.join(log_dir, f"episode_{episode}.json")
+                    with open(log_path, "w") as f:
+                        json.dump(observer_log, f, indent=4)
+                    print(f"Saved observer log to {log_path}")
+                    break  # comment this out if you want to keep running episodes
         
 
         if args_cli.video:
