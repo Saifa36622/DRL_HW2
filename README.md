@@ -99,6 +99,9 @@ we will evaluate each algorithm first then compare it to each other and to under
 
 ### 3.1 Q-learning 
 
+#### Normal_q-learing 
+
+
 ### 3.2 SARSA
 
 ### 3.3 Monte Carlo (MC)
