@@ -56,12 +56,15 @@ for training from a lot of traing with Stabilize Cart-Pole Task we can conclude 
 
 these 3  parameter is come mapping the num_of_action to action_range I will have 5 action contian -12,-6,0,6,12 action that agent can choose from and discretize_state_weight will map the obseve state to weight such as cart posiion that I weight it 10 it mean the cart position are going to have 10 state (from the limit in the code that cart are limit at -3 to 3) the cart pose will the divide in 10 state -3 to 3 in linspace
 
-- learning_rate = 0.3
+- learning_rate = 0.3 <br>
+we use 0.3 becuase it from sampling a lot of simulation of a lot of algorithm 0.3 is Reasonable steps	and most Balanced
+  
 - n_episodes = 12000
 - start_epsilon = 1.0
-- epsilon_decay = 0.9996
+- epsilon_decay = 0.9997
 - final_epsilon = 0.01
-- discount = 0.5
+- discount = 0.5 <br>
+  The discount factory is max around 0.9 and min around 0.1 ,So we choose 0.5 to be the normal factor 
 
 ### Epsilon calculation 
 
@@ -88,13 +91,36 @@ episode ,The epsilon will be like the picture as follow
 
 we will evaluate each algorithm first then compare it to each other and to understand each algorithm behavior and to selected the best performance for each algorithm ,we will find tune each hyperparameter as follow 
 
-1. epsilon decay -> to analyze explore and exploit behavior of each algorithm 
+1. epsilon decay -> to analyze explore and exploit behavior of each algorithm
+- compare between 
+    - Normal epsilon decay rate : 0.9997
+    - Increase epsilon decay rate : 0.9998
+    - Decrease epsilon decay rate : 0.9996
 
-2. num action + discretize weight -> -> analyze the effec of resolutions of each algorithm 
+2. num action + discretize weight -> analyze the effec of resolutions of each algorithm
+   - compare between
+        - Normal space :
+           - num_of_action = 5
+            - action_range = [-12.0, 12.0]
+            - discretize_state_weight = [10,20, 2, 2]
+        - more space :
+           - num_of_action = 7
+            - action_range = [-12.0, 12.0]
+            - discretize_state_weight = [20,30, 5, 5]
+        - less space :
+           - num_of_action = 3
+            - action_range = [-12.0, 12.0]
+            - discretize_state_weight = [5,10, 2, 2]
+4. leaning rate -> analyze the effec how much new information overrides old Q-values
+   - Normal leaning rate : 0.3
+    - Increase epsilon decay rate : 0.7
+    - Decrease epsilon decay rate : 0.1
 
-3. leaning rate 
-
-4. discount factor 
+6. discount factor -> analyze how Q-values change over time with different 𝛾 settings
+   - compare between 
+    - Normal discount factor : 0.3
+    - Increase discount factor : 0.1
+    - Decrease discount factor : 0.99
 
 
 ### 3.1 Q-learning 
@@ -106,10 +132,7 @@ p.s. some of the train is in complete due to earth quake but we can still see th
 
 #### Epislon compare 
 
-compare between 
-- Normal epsilon decay rate : 0.9997
-- Increase epsilon decay rate : 0.9998
-- Decrease epsilon decay rate : 0.9996
+
 
 ![image](https://github.com/user-attachments/assets/4c936d0d-a4d8-4c2a-9928-7d53d6ddd7ed)
 
@@ -148,11 +171,6 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 
 #### Discount factor compare  
-
-compare between 
-- Normal discount factor : 0.3
-- Increase discount factor : 0.1
-- Decrease discount factor : 0.99
 
 ![image](https://github.com/user-attachments/assets/025735ad-2df2-45a4-aab2-7fd0c5d98e05)
 
