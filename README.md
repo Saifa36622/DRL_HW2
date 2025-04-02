@@ -167,7 +167,8 @@ https://github.com/user-attachments/assets/df61e28f-6d15-483d-95f8-b5103041358c
 
 then we can pick one of the play and plot the observation of the agent movement as follow 
 
-![image](https://github.com/user-attachments/assets/54ec5f75-1ad1-442c-9937-28d378bfe956)
+![image](https://github.com/user-attachments/assets/1a50abee-3f69-477c-8bc5-790b8aff0f84)
+
 
 **Conclusion** 
 
@@ -390,7 +391,7 @@ and we track the state visite in heatmap in every timestep
 
 ![image](https://github.com/user-attachments/assets/562f44eb-adbd-422a-b1bc-f0d80815cc8e)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/e885b692-c8ac-47e6-bbe6-6dbdc875e61d)
 
 and if we play agent from the collected q-value it will look like this 
 
@@ -414,19 +415,44 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 ![image](https://github.com/user-attachments/assets/6c892890-3296-4775-82c4-6cedfb11ec07)
 
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/9f0c2d13-69d0-4a72-9415-2a166e9a1d31)
+
+![image](https://github.com/user-attachments/assets/c4c8aeb5-1d91-492a-b032-cd8275d15099)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/44d81ad1-5322-4f4a-bfa4-596547b49d95)
+
+![image](https://github.com/user-attachments/assets/e13aa6ac-2390-4031-8e97-cf9271d00ef1)
+
+![image](https://github.com/user-attachments/assets/ca6b9372-afb9-4bbf-af2e-ebb3e954c1d0)
+
+and if we play agent from the collected q-value it will look like this 
+
+**Increase discount factor**
+
+
+https://github.com/user-attachments/assets/192aedf1-9dd1-4ec9-8422-89cb2cd8bdb7
+
+
+
+**Decrease discount factor**
+
+https://github.com/user-attachments/assets/0be9b1fc-41fe-42c8-aff2-521983cdbce8
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/4ad4fea9-de8e-4d9a-91f3-378c1b0f5364)
+
+**conclusion**
+
 
 ### 3.3 Monte Carlo (MC)
 
 This is result of all training from Monte Carlo (MC) algorithm 
 
-
-#### Epislon compare 
-
-#### Action and observation space compare 
-
-#### Learning rate compare 
-
-#### Discount factor compare  
 
 
 
@@ -445,6 +471,12 @@ we plot the Q-value from the state cart pose and pole pose as follow
 
 ![image](https://github.com/user-attachments/assets/fba4d393-5db8-4bdf-91d9-f59620b7cf8d)
 
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/d495c0b9-9655-4f04-81df-5810f027bc35)
+![image](https://github.com/user-attachments/assets/5d73e295-1b41-4699-9056-5fb5f2f9e313)
+![image](https://github.com/user-attachments/assets/a15f799d-5c74-4a05-bef6-6d02ee0d5b1d)
+
 
 and if we play agent from the collected q-value it will look like this 
 
@@ -457,6 +489,10 @@ https://github.com/user-attachments/assets/0c52b820-5f5b-4ac3-8aa7-6fa84a28aff3
 **Increase epsilon**
 
 
+
+https://github.com/user-attachments/assets/c929187f-3b93-4f04-bd50-3e827f615e36
+
+
 **Decrease epsilon**
 
 
@@ -464,6 +500,11 @@ https://github.com/user-attachments/assets/ef91779e-2749-4064-b5c1-5b66f4189a92
 
 
 then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/8ede3143-cc68-4c7b-9b67-729c147bedd0)
+
+**conclusion**
+
 
 #### Action and observation space compare 
 
@@ -491,7 +532,7 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 **Which algorithm performs best** 
 
-- from the result the algotrithm that perform the best is double q-learn then q-learn then sarsa and MC in the last
+- from the result the algotrithm that perform the best is double q-learn then q-learn then sarsa and MC in the last (evaluated from 1. reward and count score 2.performance in stabilize cart pole task)
 
 **Why does it perform better than the others?**
 - Double Q-Learning performs the best in the CartPole problem because it avoids overestimating action values by using two separate q-value , making learning more accurate and stable than Q-Learning, which learns from the best possible next action but it still performs better than SARSA because it learns faster and aims for optimal behavior, while SARSA learns from the actual action taken, making it more cautious and slower to improve. Monte Carlo performs the worst because it only updates after an entire episode ends, making it slow, less efficient, and unstable in environments like CartPole that require fast, step-by-step learning.
