@@ -169,7 +169,7 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 ![image](https://github.com/user-attachments/assets/54ec5f75-1ad1-442c-9937-28d378bfe956)
 
-**conclusion** 
+**Conclusion** 
 
 
 #### Action and observation space compare 
@@ -210,6 +210,23 @@ and we track the state visite in heatmap in every timestep
 ![image](https://github.com/user-attachments/assets/c1a7fa5c-d9de-4131-bb1d-fca3634f58df)
 
 ![image](https://github.com/user-attachments/assets/a76f963f-20f9-4c9b-ab49-ff2bf3c58335)
+
+and if we play agent from the collected q-value it will look like this 
+
+**Increase Learning rate**
+
+
+https://github.com/user-attachments/assets/1b89e5b8-bd02-49d6-be88-d65b9fc5ef37
+
+**Decrease Learning rate**
+
+
+https://github.com/user-attachments/assets/d1c3648a-48dc-43c0-ac46-619c04bfde71
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+**Conclusion**
+
 
 #### Discount factor compare  
 
@@ -257,9 +274,56 @@ we plot the Q-value from the state cart pose and pole pose as follow
 
 ![image](https://github.com/user-attachments/assets/26ce2411-6f4f-4e9f-a0af-63aa5eb0d3d4)
 
+![image](https://github.com/user-attachments/assets/c809a2b4-13c2-4844-8ef3-fb34d2d4a153)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/f6a80d6d-850c-475e-bad6-84a6a9503747)
+
+![image](https://github.com/user-attachments/assets/5d919da4-dd4c-407a-87f9-81ab9969e87b)
+
+![image](https://github.com/user-attachments/assets/e9120280-9f16-46d9-b5c9-c16debf99588)
+
+and if we play agent from the collected q-value it will look like this 
+
+**Normal SARSA**
+
+
+
+https://github.com/user-attachments/assets/70103c73-d616-4ace-bd66-14842dc5ae52
+
+**Increase epsilon**
+
+
+https://github.com/user-attachments/assets/ab55d63b-5d6e-4031-b342-0f5945a8b91d
+
+**Decrease epsilon**
+
+
+
+https://github.com/user-attachments/assets/e563dda5-9a9a-439c-a745-f3e9c5e7c38b
+
+
+
 #### Action and observation space compare 
 
 ![image](https://github.com/user-attachments/assets/0e154bc4-ee1d-49db-9c61-5df5cee887db)
+
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/cd542153-a714-447f-804c-c81a18dd3e84)
+
+![image](https://github.com/user-attachments/assets/26eade80-ccd4-4de9-bc83-decd99cb7ee9)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/44d81ad1-5322-4f4a-bfa4-596547b49d95)
+
+![image](https://github.com/user-attachments/assets/e6a454f2-5458-43f1-b279-105a815de792)
+
+![image](https://github.com/user-attachments/assets/d2872929-8fd4-4f6e-8b10-76515d05bdbd)
+
+and if we play agent from the collected q-value it will look like this 
 
 #### Learning rate compare 
 
@@ -271,6 +335,7 @@ we plot the Q-value from the state cart pose and pole pose as follow
 
 
 ### 3.3 Monte Carlo (MC)
+
 This is result of all training from Monte Carlo (MC) algorithm 
 
 
@@ -287,15 +352,52 @@ This is result of all training from Monte Carlo (MC) algorithm
 
 ### 3.4 Double Q-learning 
 
-
+This is result of all training from Double Q-learning algorithm
 
 #### Epislon compare 
 
+![image](https://github.com/user-attachments/assets/fba94543-38e0-4af2-ba24-7d0a92bc8536)
+
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/28b3b5ca-9257-497d-8d3a-c1c10523e20c)
+
+![image](https://github.com/user-attachments/assets/fba4d393-5db8-4bdf-91d9-f59620b7cf8d)
+
+
+and if we play agent from the collected q-value it will look like this 
+
+
+**Normal_double_Q**
+
+
+https://github.com/user-attachments/assets/0c52b820-5f5b-4ac3-8aa7-6fa84a28aff3
+
+**Increase epsilon**
+
+
+**Decrease epsilon**
+
+
+https://github.com/user-attachments/assets/ef91779e-2749-4064-b5c1-5b66f4189a92
+
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
 #### Action and observation space compare 
 
-#### Learning reate compare 
+![image](https://github.com/user-attachments/assets/6dd339c5-33f0-4f75-b58f-9db95187a286)
+
+#### Learning rate compare 
+
+![image](https://github.com/user-attachments/assets/ba8de33b-9109-445d-9a81-261355efa8ff)
+
 
 #### Discount factor compare  
+
+![image](https://github.com/user-attachments/assets/a8064467-9db5-478a-9b37-98f42d60cbef)
+
+
 
 
 ![image](https://github.com/user-attachments/assets/a9535f32-be1a-4d8a-a2f1-4e726277eaf6)
@@ -305,13 +407,13 @@ This is result of all training from Monte Carlo (MC) algorithm
 
 ## Conclusion 
 
+
+**Which algorithm performs best** 
+
+- from the result the algotrithm that perform the best is double q-learn then q-learn then sarsa and MC in the last
+
+**Why does it perform better than the others?**
 - 
 
-Which algorithm performs best 
-- 
-
-Why does it perform better than the others?
-- 
-
-How do the resolutions of the action space and observation space affect the learning process? Why?
+**How do the resolutions of the action space and observation space affect the learning process? Why?**
 - 
