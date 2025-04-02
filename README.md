@@ -192,6 +192,22 @@ and we track the state visite in heatmap in every timestep
 
 and if we play agent from the collected q-value it will look like this 
 
+**Increase resolution of action and observation space**
+
+
+https://github.com/user-attachments/assets/098e5554-00a1-4543-9be3-8fc8bc24be7d
+
+**Decrease resolution of action and observation space**
+
+
+https://github.com/user-attachments/assets/8ffcdde9-2af2-4ea0-9a96-c23d80c3d66a
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/49b56cdb-19a6-44fb-9c83-895b0e077e8c)
+
+**Conclusion** 
+
 
 #### Learning rate compare 
 
@@ -224,6 +240,10 @@ https://github.com/user-attachments/assets/1b89e5b8-bd02-49d6-be88-d65b9fc5ef37
 https://github.com/user-attachments/assets/d1c3648a-48dc-43c0-ac46-619c04bfde71
 
 then we can pick one of the play and plot the observation of the agent movement as follow 
+
+
+![image](https://github.com/user-attachments/assets/6bb11f3c-5958-46e4-937c-732c3ca3a97d)
+
 
 **Conclusion**
 
@@ -261,6 +281,10 @@ https://github.com/user-attachments/assets/84908894-8abf-4f1f-8b91-17dc823c27c5
 
 
 then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/3db3160c-9909-4be6-a276-3fae2f52aa4c)
+
+**Conclusion**
 
 
 ### 3.2 SARSA
@@ -303,6 +327,11 @@ https://github.com/user-attachments/assets/ab55d63b-5d6e-4031-b342-0f5945a8b91d
 
 https://github.com/user-attachments/assets/e563dda5-9a9a-439c-a745-f3e9c5e7c38b
 
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/9a34a484-4e89-418c-adb2-4687b180c967)
+
+**Conclusion**
 
 
 #### Action and observation space compare 
@@ -325,9 +354,61 @@ and we track the state visite in heatmap in every timestep
 
 and if we play agent from the collected q-value it will look like this 
 
+**Increase resolution space**
+
+
+
+https://github.com/user-attachments/assets/f99f0599-3ed5-44c0-95af-830570aff9ab
+
+
+**Decrease resolution space**
+
+
+
+https://github.com/user-attachments/assets/83d7d911-7339-48bc-b0af-8ba1b8dd6090
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/dce825f0-a1f0-4dba-8aac-74259163a20c)
+
+**Conclusion**
+
+
 #### Learning rate compare 
 
 ![image](https://github.com/user-attachments/assets/7f48935e-b322-431c-bde8-48c6ce404103)
+
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/178174e3-cb35-4db8-8198-cfa1a764b4c6)
+
+![image](https://github.com/user-attachments/assets/26d4ab87-9516-4283-9401-ddbb10cf71dc)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/44d81ad1-5322-4f4a-bfa4-596547b49d95)
+
+![image](https://github.com/user-attachments/assets/562f44eb-adbd-422a-b1bc-f0d80815cc8e)
+
+![Uploading image.png…]()
+
+and if we play agent from the collected q-value it will look like this 
+
+**Increase learning rate**
+
+
+https://github.com/user-attachments/assets/ec93e186-73ae-4835-9a8c-ca5c0edb9f58
+
+**Decrease learning rate**
+
+
+Uploading SARSA_Learn_0.1.mp4…
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/0c220e1f-267f-48d7-ba5a-d16b5bc4bb78)
+
+**Conclusion**
 
 #### Discount factor compare  
 
