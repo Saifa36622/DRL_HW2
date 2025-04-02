@@ -80,7 +80,7 @@ $$
 0.5 = 1.0 \times (0.9997)^x
 $$
 
-the answer is around 2310 episode the epsilone value will be at 0.5 and it will converge to min at 0.01 at around 15000 
+the x will be around 2310 episode the epsilone value will be at 0.5 and it will converge to min at 0.01 at around 15000 
 episode ,The epsilon will be like the picture as follow 
 
 ![image](https://github.com/user-attachments/assets/7ad2a431-a3b9-4877-b814-175f04c16f06)
@@ -111,12 +111,12 @@ we will evaluate each algorithm first then compare it to each other and to under
            - num_of_action = 3
             - action_range = [-12.0, 12.0]
             - discretize_state_weight = [5,10, 2, 2]
-4. leaning rate -> analyze the effec how much new information overrides old Q-values
+4. leaning rate -> analyze the effec how much new information overrides old Q-values of each algorithm
    - Normal leaning rate : 0.3
     - Increase epsilon decay rate : 0.7
     - Decrease epsilon decay rate : 0.1
 
-6. discount factor -> analyze how Q-values change over time with different 𝛾 settings
+6. discount factor -> analyze how Q-values change over time with different 𝛾 settings of each algorithm
    - compare between 
     - Normal discount factor : 0.3
     - Increase discount factor : 0.1
@@ -138,14 +138,13 @@ p.s. some of the train is in complete due to earth quake but we can still see th
 
 we plot the Q-value from the state cart pose and pole pose as follow 
 
-![image](https://github.com/user-attachments/assets/ad7140f7-7733-4463-9b01-fa03fd48089f)
+![image](https://github.com/user-attachments/assets/bd0aafbf-7d7d-48a8-afd0-790ef445a06f)
 
-![image](https://github.com/user-attachments/assets/12da7c3a-00d5-4beb-825b-6a4fff410459)
+![image](https://github.com/user-attachments/assets/44df1089-6432-4228-9197-47e56a0cca1b)
 
 and we track the state visite in heatmap in every timestep 
 
 ![image](https://github.com/user-attachments/assets/5e7793ca-6ff1-4a05-82e1-01016653dc23)
-
 
 ![image](https://github.com/user-attachments/assets/20aac7f5-efae-47fd-82b0-f2b007abce76)
 
@@ -164,11 +163,26 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 ![image](https://github.com/user-attachments/assets/12a18bf0-0c75-4e77-a734-ba0ce5b4bf2c)
 
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+
 #### Learning reate compare 
 
 ![image](https://github.com/user-attachments/assets/d272d748-496a-41be-9353-2fc37a244a3f)
 
+we plot the Q-value from the state cart pose and pole pose as follow 
 
+![image](https://github.com/user-attachments/assets/3d87173e-b798-4bb4-88c8-24a62c36f6c1)
+
+![image](https://github.com/user-attachments/assets/ad41cc29-012f-4512-be24-dff19462d3c4)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/aab08e26-bdb5-434e-ae33-0315ddd7748f)
+
+![image](https://github.com/user-attachments/assets/c1a7fa5c-d9de-4131-bb1d-fca3634f58df)
+
+![image](https://github.com/user-attachments/assets/a76f963f-20f9-4c9b-ab49-ff2bf3c58335)
 
 #### Discount factor compare  
 
@@ -196,10 +210,44 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 
 ### 3.2 SARSA
+This is result of all training from SARSA algorithm 
+
+
+#### Epislon compare 
+
+#### Action and observation space compare 
+
+#### Learning reate compare 
+
+#### Discount factor compare  
 
 ### 3.3 Monte Carlo (MC)
+This is result of all training from SARSA algorithm 
+
+
+#### Epislon compare 
+
+#### Action and observation space compare 
+
+#### Learning reate compare 
+
+#### Discount factor compare  
 
 ### 3.4 Double Q-learning 
+
+This is result of all training from SARSA algorithm 
+
+#### Epislon compare 
+
+#### Action and observation space compare 
+
+#### Learning reate compare 
+
+#### Discount factor compare  
+
+
+![image](https://github.com/user-attachments/assets/a9535f32-be1a-4d8a-a2f1-4e726277eaf6)
+
 
 ### Conpare every algorithm
 
