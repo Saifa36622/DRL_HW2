@@ -113,14 +113,14 @@ we will evaluate each algorithm first then compare it to each other and to under
             - discretize_state_weight = [5,10, 2, 2]
 4. leaning rate -> analyze the effec how much new information overrides old Q-values of each algorithm
    - Normal leaning rate : 0.3
-    - Increase epsilon decay rate : 0.7
-    - Decrease epsilon decay rate : 0.1
+    - Increase leaning rate : 0.7
+    - Decrease leaning rate : 0.1
 
 6. discount factor -> analyze how Q-values change over time with different 𝛾 settings of each algorithm
    - compare between 
     - Normal discount factor : 0.3
-    - Increase discount factor : 0.1
-    - Decrease discount factor : 0.99
+    - Increase discount factor : 0.99
+    - Decrease discount factor : 0.01
 
 
 ### 3.1 Q-learning 
@@ -131,7 +131,6 @@ This is result of all training from q-learning algorithm
 p.s. some of the train is in complete due to earth quake but we can still see the trend 
 
 #### Epislon compare 
-
 
 
 ![image](https://github.com/user-attachments/assets/4c936d0d-a4d8-4c2a-9928-7d53d6ddd7ed)
@@ -152,6 +151,20 @@ and we track the state visite in heatmap in every timestep
 
 and if we play agent from the collected q-value it will look like this 
 
+**Q_Normal**
+
+https://github.com/user-attachments/assets/6a2740d4-66e6-4788-a8a5-242c0c1678d3
+
+**Increase epsilon decay rate : 0.9998**
+
+
+https://github.com/user-attachments/assets/a663f0f1-f0d9-4619-b799-755b820c9152
+
+**Decrease epsilon decay rate : 0.9996**
+
+
+https://github.com/user-attachments/assets/df61e28f-6d15-483d-95f8-b5103041358c
+
 then we can pick one of the play and plot the observation of the agent movement as follow 
 
 ![image](https://github.com/user-attachments/assets/54ec5f75-1ad1-442c-9937-28d378bfe956)
@@ -165,8 +178,22 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 we plot the Q-value from the state cart pose and pole pose as follow 
 
+![image](https://github.com/user-attachments/assets/7d23ad24-1574-4287-bb00-6ff479d29a67)
 
-#### Learning reate compare 
+![image](https://github.com/user-attachments/assets/65e6a281-93bb-4c67-be2b-ad65d8f44815)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/5e7793ca-6ff1-4a05-82e1-01016653dc23)
+
+![image](https://github.com/user-attachments/assets/e842e2d7-3024-45d9-931a-6f38a8da1feb)
+
+![image](https://github.com/user-attachments/assets/f9cdec60-3d89-47d1-8a02-630597e1892e)
+
+and if we play agent from the collected q-value it will look like this 
+
+
+#### Learning rate compare 
 
 ![image](https://github.com/user-attachments/assets/d272d748-496a-41be-9353-2fc37a244a3f)
 
@@ -204,38 +231,63 @@ and we track the state visite in heatmap in every timestep
 
 and if we play agent from the collected q-value it will look like this 
 
+**Increase discount factor : 0.99**
+
+
+https://github.com/user-attachments/assets/dfb5e020-1e75-4ed1-a844-891610e35218
+
+
+**Decrease discount factor : 0.01**
+
+
+https://github.com/user-attachments/assets/84908894-8abf-4f1f-8b91-17dc823c27c5
+
 
 then we can pick one of the play and plot the observation of the agent movement as follow 
-
 
 
 ### 3.2 SARSA
 This is result of all training from SARSA algorithm 
 
-
 #### Epislon compare 
+
+![image](https://github.com/user-attachments/assets/dc568a03-81a1-4930-aa6c-b27114717893)
+
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/26ce2411-6f4f-4e9f-a0af-63aa5eb0d3d4)
 
 #### Action and observation space compare 
 
-#### Learning reate compare 
+![image](https://github.com/user-attachments/assets/0e154bc4-ee1d-49db-9c61-5df5cee887db)
+
+#### Learning rate compare 
+
+![image](https://github.com/user-attachments/assets/7f48935e-b322-431c-bde8-48c6ce404103)
 
 #### Discount factor compare  
+
+![image](https://github.com/user-attachments/assets/6c892890-3296-4775-82c4-6cedfb11ec07)
+
 
 ### 3.3 Monte Carlo (MC)
-This is result of all training from SARSA algorithm 
+This is result of all training from Monte Carlo (MC) algorithm 
 
 
 #### Epislon compare 
 
 #### Action and observation space compare 
 
-#### Learning reate compare 
+#### Learning rate compare 
 
 #### Discount factor compare  
+
+
+
 
 ### 3.4 Double Q-learning 
 
-This is result of all training from SARSA algorithm 
+
 
 #### Epislon compare 
 
