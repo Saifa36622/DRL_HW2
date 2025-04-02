@@ -121,6 +121,9 @@ we plot the Q-value from the state cart pose and pole pose as follow
 
 and we track the state visite in heatmap in every timestep 
 
+![image](https://github.com/user-attachments/assets/5e7793ca-6ff1-4a05-82e1-01016653dc23)
+
+
 ![image](https://github.com/user-attachments/assets/20aac7f5-efae-47fd-82b0-f2b007abce76)
 
 ![image](https://github.com/user-attachments/assets/50bba180-cb2b-430d-8df5-89de543a02f3)
@@ -140,7 +143,8 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 #### Learning reate compare 
 
-![image](https://github.com/user-attachments/assets/02ccfaab-faa3-4cf1-816f-d2609fb4d698)
+![image](https://github.com/user-attachments/assets/d272d748-496a-41be-9353-2fc37a244a3f)
+
 
 
 #### Discount factor compare  
@@ -160,9 +164,18 @@ we plot the Q-value from the state cart pose and pole pose as follow
 
 and we track the state visite in heatmap in every timestep 
 
+![image](https://github.com/user-attachments/assets/aab08e26-bdb5-434e-ae33-0315ddd7748f)
+
 ![image](https://github.com/user-attachments/assets/a15a176d-a407-4b3d-97a5-754d8841a04c)
 
 ![image](https://github.com/user-attachments/assets/001d7e64-ac9c-41dd-aa63-a7399740d2a9)
+
+and if we play agent from the collected q-value it will look like this 
+
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+
 
 ### 3.2 SARSA
 
