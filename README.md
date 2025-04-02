@@ -99,18 +99,70 @@ we will evaluate each algorithm first then compare it to each other and to under
 
 ### 3.1 Q-learning 
 
-#### Normal_q-learing 
+
+This is result of all training from q-learning algorithm 
+
+p.s. some of the train is in complete due to earth quake but we can still see the trend 
+
+#### Epislon compare 
+
+compare between 
+- Normal epsilon decay rate : 0.9997
+- Increase epsilon decay rate : 0.9998
+- Decrease epsilon decay rate : 0.9996
+
+![image](https://github.com/user-attachments/assets/4c936d0d-a4d8-4c2a-9928-7d53d6ddd7ed)
+
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/ad7140f7-7733-4463-9b01-fa03fd48089f)
+
+![image](https://github.com/user-attachments/assets/12da7c3a-00d5-4beb-825b-6a4fff410459)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/20aac7f5-efae-47fd-82b0-f2b007abce76)
+
+![image](https://github.com/user-attachments/assets/50bba180-cb2b-430d-8df5-89de543a02f3)
+
+and if we play agent from the collected q-value it will look like this 
+
+then we can pick one of the play and plot the observation of the agent movement as follow 
+
+![image](https://github.com/user-attachments/assets/54ec5f75-1ad1-442c-9937-28d378bfe956)
+
+**conclusion** 
 
 
-![image](https://github.com/user-attachments/assets/2e41e9a0-854d-4c66-a90a-85841e7a4b1d)
+#### Action and observation space compare 
+
+![image](https://github.com/user-attachments/assets/12a18bf0-0c75-4e77-a734-ba0ce5b4bf2c)
+
+#### Learning reate compare 
+
+![image](https://github.com/user-attachments/assets/02ccfaab-faa3-4cf1-816f-d2609fb4d698)
 
 
-( count is timestep (in secound) that agent is alive or not be terminate in average in every 1000 episdode )
+#### Discount factor compare  
 
-and we can plot compare the state with Q-value as follow 
+compare between 
+- Normal discount factor : 0.3
+- Increase discount factor : 0.1
+- Decrease discount factor : 0.99
 
-![Normal_q](https://github.com/user-attachments/assets/ff6123d4-58cd-44e6-a6ee-1cda50578e3e)
+![image](https://github.com/user-attachments/assets/025735ad-2df2-45a4-aab2-7fd0c5d98e05)
 
+we plot the Q-value from the state cart pose and pole pose as follow 
+
+![image](https://github.com/user-attachments/assets/236a2dac-058c-4fae-b934-6dc286724485)
+
+![image](https://github.com/user-attachments/assets/72f765df-dcad-4bf0-a8a7-4c6086cfbc4c)
+
+and we track the state visite in heatmap in every timestep 
+
+![image](https://github.com/user-attachments/assets/a15a176d-a407-4b3d-97a5-754d8841a04c)
+
+![image](https://github.com/user-attachments/assets/001d7e64-ac9c-41dd-aa63-a7399740d2a9)
 
 ### 3.2 SARSA
 
