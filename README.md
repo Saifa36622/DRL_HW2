@@ -413,7 +413,7 @@ then we can pick one of the play and plot the observation of the agent movement 
 - from the result the algotrithm that perform the best is double q-learn then q-learn then sarsa and MC in the last
 
 **Why does it perform better than the others?**
-- 
+- Double Q-Learning performs the best in the CartPole problem because it avoids overestimating action values by using two separate q-value , making learning more accurate and stable than Q-Learning, which learns from the best possible next action but it still performs better than SARSA because it learns faster and aims for optimal behavior, while SARSA learns from the actual action taken, making it more cautious and slower to improve. Monte Carlo performs the worst because it only updates after an entire episode ends, making it slow, less efficient, and unstable in environments like CartPole that require fast, step-by-step learning.
 
 **How do the resolutions of the action space and observation space affect the learning process? Why?**
-- 
+- when the observation and action spaces have high resolution (very detailed), Algorithm has the potential to learn more precise and smarter behavior. But because there are so many possible state to learn from, it needs a lot of exploration to see and understand them all. If it doesn’t explore enough, it will miss important situations, and during the exploitation phase (when it uses what it has learned), it might make poor decisions because it never learned the best actions in those missed states.Therefor if the action space and observation space is change the epsilon decay rate should change to fit the resolution ,also if the resolution of the action space and observation space is too low the agent might not have a precise state to learn enought to exploit more reward and cuase the agent too have poor performance
