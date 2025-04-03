@@ -135,11 +135,16 @@ p.s. some of the train is in complete due to earth quake but we can still see th
 
 ![image](https://github.com/user-attachments/assets/4c936d0d-a4d8-4c2a-9928-7d53d6ddd7ed)
 
+from the reward and count term we will clearly see that Normal q out perform both Epislon tunning 
+while the epsilon 0.9996(Decrease epsilon) may have explore then exploit the reward faster than the other but in the exploit phase due to lack of enough information of the best action on somestate the agent performance will be drop on this phase ,On the contrast the epsilon 0.9998(Increase epsilon) will go to phase exploit slower ,So if compare in equal episode it will be normal that the less epsilon that fit that amount of episode might out perform the bigger one ,On the contraty if the number of episode increase the epsilon 0.9998(Increase epsilon) might out perfomrthe normal one .
+
 we plot the Q-value from the state cart pose and pole pose as follow 
 
 ![image](https://github.com/user-attachments/assets/bd0aafbf-7d7d-48a8-afd0-790ef445a06f)
 
 ![image](https://github.com/user-attachments/assets/44df1089-6432-4228-9197-47e56a0cca1b)
+
+we will cleary see that epsilon did not effect the q-value that much,All of the graph have similr trend ,indicate that on every cart position ,pole position is try to convert in to the middle but the cart position is not convert we will clearly see that from the graph ,might be due to the reward function set up that did not reward the cart position that much ,So the agent is only exploit the pole pose reward term and did not care for cart position  
 
 and we track the state visite in heatmap in every timestep 
 
@@ -149,6 +154,7 @@ and we track the state visite in heatmap in every timestep
 
 ![image](https://github.com/user-attachments/assets/50bba180-cb2b-430d-8df5-89de543a02f3)
 
+we can see that from increase epsilon decay at around episode 5000 the agent still have oscillate state visit compare to the other indicate the slower rate of explore phase 
 and if we play agent from the collected q-value it will look like this 
 
 **Q_Normal**
@@ -169,6 +175,7 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 ![image](https://github.com/user-attachments/assets/1a50abee-3f69-477c-8bc5-790b8aff0f84)
 
+we can clearly see that from the graph the Normal q learn can perform the best that can stabilize cart pole up to 1000 timstep or the ax timestep befrore it teriminate and the cart position is try to convart around 0 while Increase epsilon decay rate the pole position is quite stabke but been terminate due to cart poistion indicate that agent already learn to exploit th reward term on pole position the other step is agent stil need to learn to not be terminate to expoit terminated rewad term and Decrease epsilon decay rate cna clearly see that it still need to explore the best action on each state more 
 
 **Conclusion** 
 
