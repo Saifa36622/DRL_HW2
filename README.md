@@ -453,6 +453,9 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 This is result of all training from Monte Carlo (MC) algorithm 
 
+This algorithm did not use learning rate So we will skip that 
+
+![image](https://github.com/user-attachments/assets/f31fbd02-433a-4c8d-9d77-274b638564af)
 
 
 
