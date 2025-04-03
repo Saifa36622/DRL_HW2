@@ -537,6 +537,8 @@ then we can pick one of the play and plot the observation of the agent movement 
 
 ### Conpare every algorithm
 
+![image](https://github.com/user-attachments/assets/e201fd8e-5c67-4f3e-a236-f28dec5dc2ca)
+
 ## Conclusion 
 
 
